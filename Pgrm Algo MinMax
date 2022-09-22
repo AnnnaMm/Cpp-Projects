@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+void Show(int* A, int size);
+
+void MinMax(int* arr, int start, int end, int& min, int& max)
+{
+    if (arr[0] < arr[1])
+    {
+        min = start;
+        max = start + 1;
+    }
+    else
+    {
+        min = start + 1;
+        max = start;
+    }
+
+    for (int i = start; i < end; i++)
+    {
+        if (arr[i] < arr[i + 1])
+        {
+            if (arr[i] < arr[min]) 
+            {
+                min = i;
+            }
+            if (arr[i + 1] > arr[max]) 
+            {
+                max = i + 1;
+            }
+        }
+        else {
+            if (arr[i] > arr[max]) 
+            {
+                max = i;
+            }
+            if (arr[i + 1] < arr[min]) 
+            {
+                min = i + 1;
+            }
+        }
+    }
+}
+int* Sort(int* arr, int start, int end)
+{
+    int min, max;
+    MinMax(arr, start, end, min, max);
+    if (start != end)
+    {
+        if (min != start || max != end)
+        {
+            swap(arr[max], arr[end]);
+            if (min != end)
+            {
+                swap(arr[min], arr[start]);
+
+                return Sort(arr, start + 1, end - 1);
+            }
+        }
+        return Sort(arr, start, end - 1);
+    }
+    return arr;
+}
+int main()
+{
+    const int n = 10;
+    int arr[n] = { 5,-3,9,-6,4,-2,3,0,1,-7 };
+
+    cout << " array" << endl;
+    Show(arr, n);
+
+    int start(0), end = n - 1;
+
+    Sort(arr, start, end);
+    cout << "sorted array " << endl;
+    Show(arr, n);
+
+    return 0;
+}
+void Show(int* A, int size)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        cout << A[i] << "    ";
+    }
+    cout << endl;
+}
