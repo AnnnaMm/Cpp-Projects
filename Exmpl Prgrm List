@@ -1,0 +1,110 @@
+
+
+#include <iostream>
+#include <list>
+
+using namespace std;
+
+typedef  list<int>  myList;
+
+myList eraseNextElement(myList L, int e)
+{
+    myList LT = L;
+
+    auto iter = LT.cbegin();
+    int nPrev = L.front();
+
+    for (int n : L)
+    {
+        if (nPrev == e && nPrev != n)
+        {
+            iter = LT.erase(--iter);
+        }
+        iter++;
+        nPrev = n;
+    }
+
+    return LT;
+}
+
+
+bool comp(const int& L, const int& R)
+{
+    return L > R;
+}
+
+myList halfSort(myList L)
+{
+    myList LL = L;
+
+    myList LR = L;
+    int N = L.size() / 2;
+    int M = LR.size() - N;;
+
+    for (int i = 0; i < N; i++)
+    {
+        LL.pop_back();
+    }
+
+    for (int i = 0; i < M; i++)
+    {
+        LR.pop_front();
+    }
+
+    LR.sort(comp);
+
+    N = LR.size();
+    for (int i = 0; i < N; i++)
+    {
+        int v = LR.front();
+        LR.pop_front();
+        LL.push_back(v);
+    }
+    return LL;
+}
+
+myList reverseList(myList L)
+{
+    myList res;
+    for (int i = L.size(); i > 0; i--)
+    {
+        int v = L.back();
+        L.pop_back();                                      
+        res.push_back(v);                                  
+    }
+    return res;
+}
+
+void printList(myList L)
+{
+    for (int n : L)
+    {
+        cout << n << " ";
+    }
+    cout << endl;
+}
+
+int main()
+{
+    int e;
+    myList X{ 1, 2, 3, 3, 4, 5, 6, 71,3, 118, 9 };
+    printList(X);
+
+    cout << "Which elemnt you want to delete? = "; 
+    cin >> e;
+    myList DX = eraseNextElement(X, e);
+    printList(DX);
+
+    cout << "Reverse list:";
+    myList RX = reverseList(X);
+    printList(RX);
+
+    cout << "Half sort:";
+    myList HX = halfSort(X);
+    printList(HX);
+
+    getchar();
+
+
+}
+
