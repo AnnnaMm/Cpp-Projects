@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+int Revers(int num, int revers) 
+{
+    int k = 0;
+    do 
+    {
+        k = num % 10;
+        revers = (revers * 10) + k;
+        num = num / 10;
+    } while (num > 0);
+    return revers;
+}
+int main() 
+{
+    int save_num, num, revers = 0, sum, i = 0;
+    cout << "Enter num: "<<endl;
+    cin >> num;
+
+    save_num = num;
+    revers = Revers(num, revers);
+
+    cout << "Reverse of num is: "<<endl << revers << endl;
+
+    if (save_num == revers)
+        cout << "Yes"<<endl;
+    else 
+    {
+        while (save_num != revers) 
+        {
+            cout << "No" << endl;
+            sum = save_num + revers;
+            cout << endl << save_num << " + " << revers << " = " << sum << endl;
+
+            num = sum;
+            save_num = num;
+            revers = 0;
+            revers = Revers(num, revers);
+            i++;
+        };
+        cout << "Palindrome = " << revers << endl << "Number of action = " << i << endl;
+    };
+    return 0;
+}
