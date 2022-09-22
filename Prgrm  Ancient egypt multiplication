@@ -1,0 +1,38 @@
+//13  x  19 ->     0
+//6     38       19
+//3     76 ->
+//1    152 ->    95
+//0    304      247
+// ancient egypt multiplication
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int l, r;
+	cout << "Multiplication : "<<endl;
+    cout << "First num = ";
+    cin >> l;
+	cout << "Second num = ";
+	cin >> r;
+	int sum = 0;
+//
+//	//while (l > 1 && l !=0 )
+//	//{
+		if (l % 2 != 0 /*&& l != 1*/)
+		{
+			sum = sum + r;
+		}
+		do 
+		{
+			l = l / 2;
+			r = r * 2;
+			if (l % 2 != 0 )
+			{
+				sum = sum + r;
+			}
+		} while (l != 1);
+		cout << "Result :" << sum << endl;
+        return 0;
+}
