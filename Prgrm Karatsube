@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <math.h>
+#include<iostream>
+
+using namespace std;
+
+
+int getSize(long num)
+{
+    int count = 0;
+    while (num > 0)
+    {
+        count++;
+        num /= 10;
+    }
+    return count;
+}
+
+double karatsuba(int a, int b)
+{
+   
+    if (a < 10 && b < 10)
+        return a * b;
+
+  
+    int size = max(getSize(a), getSize(b));
+
+    
+    int n = size / 2;
+    int midDegree = pow(10, n);
+    int a0 = a / midDegree;
+    int a1 = a % midDegree;
+    int b0 = b / midDegree;
+    int b1 = b % midDegree;
+
+    
+    double c1 = karatsuba(a0, b0);
+    double c2 = karatsuba(a1, b1);
+    double c0 = karatsuba(a0 + a1, b0 + b1) - c1 - c2;
+
+   
+    return (pow(10, 2 * n) * c1 + pow(10, n) * c0 + c2);
+}
+
+
+int main()
+{
+    int a, b;
+    cout << "enter two numbers to multiply" << endl;
+    cin >> a >> b;
+    cout << karatsuba(a, b);
+}
